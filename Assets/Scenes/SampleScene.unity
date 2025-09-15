@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 368742689}
   - component: {fileID: 368742690}
   m_Layer: 0
-  m_Name: Tem
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 1538259785}
   - component: {fileID: 1538259784}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Circle
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
