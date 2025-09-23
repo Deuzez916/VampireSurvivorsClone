@@ -13,6 +13,7 @@ public class SettingsManager : MonoBehaviour
 
     void Start()
     {
+
         soundToggle.isOn = PlayerPrefs.GetInt("Sound", 1) == 1;
         musicToggle.isOn = !musicSource.mute;
         controlSchemeSlider.value = PlayerPrefs.GetInt("ControlScheme", 0);
