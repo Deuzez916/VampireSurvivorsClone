@@ -10,12 +10,7 @@ public class MainMenu : MonoBehaviour
 
     public void SettingsMenu()
     {
+        Debug.Log("Settings-knappen trycktes!");
         SceneManager.LoadScene("SettingsMenu");
-    }
-
-    public void QuitGame()
-    {
-        Debug.Log("Game Quit");
-        Application.Quit();
     }
 }
