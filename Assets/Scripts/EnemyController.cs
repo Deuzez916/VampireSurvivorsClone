@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
     public float attackCooldown = 1f;
     public float lastAttackTime;
 
+    [Header("XP Drop")]
+    public GameObject[] xpPrefab;
 
     private Transform player;
     private Enemy enemyStats;
@@ -36,8 +38,18 @@ public class EnemyController : MonoBehaviour
     {
         if (enemyStats.health <= 0)
         {
+            DropXP();
             Destroy(gameObject);
             Debug.Log("Enemy defeated");
+        }
+    }
+
+    void DropXP()
+    {
+        if (xpPrefab.Length > 0)
+        {
+            int randomIndex = Random.Range(0, xpPrefab.Length);
+            Instantiate(xpPrefab[randomIndex], transform.position, Quaternion.identity);
         }
     }
 

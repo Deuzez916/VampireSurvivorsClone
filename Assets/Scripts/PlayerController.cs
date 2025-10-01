@@ -6,6 +6,12 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public int health = 10;
     public int damage = 1;
+
+    public int level = 1;
+
+    public int currentXP = 0;
+
+    public int xpToNextLevel = 10;
     public GameObject projectilePrefab;
 
     private Vector2 lastMoveDirection = Vector2.right;
@@ -56,5 +62,22 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Player Deid!");
             Destroy(gameObject);
         }
+    }
+
+    public void GainXP(int amount)
+    {
+        currentXP += amount;
+
+        if (currentXP >= xpToNextLevel)
+        {
+            LevelUp();
+        }
+    }
+
+    void LevelUp()
+    {
+        level++;
+        currentXP -= xpToNextLevel;
+        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
     }
 }

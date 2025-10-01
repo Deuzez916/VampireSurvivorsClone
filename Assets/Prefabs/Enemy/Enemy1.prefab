@@ -188,6 +188,8 @@ MonoBehaviour:
   moveSpeed: 2
   attackCooldown: 1
   lastAttackTime: 0
+  xpPrefab:
+  - {fileID: 1867536879858749767, guid: ed470a4bd9e5f4740a8b4b1c56dd41d0, type: 3}
 --- !u!95 &5174418740833633650
 Animator:
   serializedVersion: 7

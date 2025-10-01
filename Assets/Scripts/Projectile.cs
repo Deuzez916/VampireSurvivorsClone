@@ -27,13 +27,6 @@ public class Projectile : MonoBehaviour
             if (enemy != null)
             {
                 enemy.health -= damage;
-                Debug.Log("Enemy hit! Health: " + enemy.health);
-
-                if (enemy.health <= 0)
-                {
-                    Destroy(enemy.gameObject);
-                    Debug.Log("Enemy defeated!");
-                }
             }
         }
     }
