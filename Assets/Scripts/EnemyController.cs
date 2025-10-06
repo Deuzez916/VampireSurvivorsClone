@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    private PlayerController playerController;
+
     public float moveSpeed = 2f;
     public float attackCooldown = 1f;
     public float lastAttackTime;
@@ -10,27 +12,35 @@ public class EnemyController : MonoBehaviour
     [Header("XP Drop")]
     public GameObject[] xpPrefab;
 
-    private Transform player;
+    private Transform playerTransform;
     private Enemy enemyStats;
     private Rigidbody2D rb;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            playerController = playerObj.GetComponent<PlayerController>();
+            playerTransform = playerObj.transform;
+        }
+
         enemyStats = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        if (player == null) return;
+        if (playerController == null) return;
+        if (!playerController.canMove) return;
+
         MoveTowardsPlayer();
         ChechDeath();
     }
 
     void MoveTowardsPlayer()
     {
-        Vector2 direction = (player.position - transform.position).normalized;
+        Vector2 direction = (playerTransform.position - transform.position).normalized;
         rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
     }
 

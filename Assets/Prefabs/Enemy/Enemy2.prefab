@@ -187,3 +187,5 @@ MonoBehaviour:
   moveSpeed: 3
   attackCooldown: 1
   lastAttackTime: 0
+  xpPrefab:
+  - {fileID: 6497410297792046212, guid: bfdbb0ff3651a428f97ea748db955da3, type: 3}

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
     public float spawnInterval = 2f;
     public int minEnemies = 1;
     public int maxEnemies = 5;
@@ -30,11 +30,13 @@ public class NewMonoBehaviourScript : MonoBehaviour
     void SpawnEnemies()
     {
         int enemyCount = Random.Range(minEnemies, maxEnemies + 1);
+        int enemyIndex;
 
         for (int i = 0; i < enemyCount; i++)
         {
             Vector3 spawnPos = GetRandomSpawnPosition();
-            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            enemyIndex = Random.Range(0, enemyPrefab.Length);
+            Instantiate(enemyPrefab[enemyIndex], spawnPos, Quaternion.identity);
         }
     }
 

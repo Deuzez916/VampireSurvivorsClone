@@ -10,13 +10,15 @@ public class Projectile : MonoBehaviour
 
     public void SetDirection(Vector2 direction)
     {
-        moveDirection = direction.normalized;
+        moveDirection = direction;
+        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
         Destroy(gameObject, lifetime);
     }
 
     void Update()
     {
-        transform.Translate(moveDirection * speed * Time.deltaTime);
+        transform.position += (Vector3)(moveDirection * speed * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D other)
