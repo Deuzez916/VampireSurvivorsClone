@@ -1,5 +1,6 @@
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,20 +27,20 @@ public class UpgradeManager : MonoBehaviour
         sprintButton.onClick.AddListener(ChooseSprintUpgrade);
         healButton.onClick.AddListener(ChooseSelfHeal);
 
-        upgradeMenu.SetActive(false);
+        upgradeMenu.SetActive(false); 
     }
 
     public void ShowUpgradeMenu()
     {
+        StageManager.Instance.SetState(GameState.Upgrade);
         upgradeMenu.SetActive(true);
         UpdateUpgradeButtons();
-        player.canMove = false;
     }
 
     public void HideUpgradeMenu()
     {
+        StageManager.Instance.SetState(GameState.Play);
         upgradeMenu.SetActive(false);
-        player.canMove = true;
     }
 
     void ChooseWeaponUpgrade()

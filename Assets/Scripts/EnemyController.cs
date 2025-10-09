@@ -31,6 +31,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        if (StageManager.Instance.IsPaused || StageManager.Instance.IsUpgrading) return;
         if (playerController == null) return;
         if (!playerController.canMove) return;
 

@@ -18,6 +18,8 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        if (StageManager.Instance.IsPaused || StageManager.Instance.IsUpgrading) return;
+        
         timer += Time.deltaTime;
 
         if (timer >= spawnInterval)

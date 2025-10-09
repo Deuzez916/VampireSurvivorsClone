@@ -45,6 +45,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (StageManager.Instance.IsPaused || StageManager.Instance.IsUpgrading)
+        {
+            if (TryGetComponent<Animator>(out Animator anim))
+                anim.speed = 0;
+            return;
+        }
+        else
+        {
+            if (TryGetComponent<Animator>(out Animator anim))
+                anim.speed = 1;
+        }
+
         Move();
 
         if (Input.GetKeyDown(KeyCode.Space))
