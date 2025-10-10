@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3162626985402085354}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
   speed: 8
   damage: 1
   lifetime: 5
+  shooterTag: Player
 --- !u!50 &507196765305531205
 Rigidbody2D:
   serializedVersion: 5

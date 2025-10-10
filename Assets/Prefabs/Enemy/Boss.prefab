@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 2709772409481030144}
   - component: {fileID: 2758535541306591082}
   - component: {fileID: 5457519102535332710}
-  - component: {fileID: 8949759367068422498}
   - component: {fileID: 6163700961507707503}
-  - component: {fileID: -8085512847885861738}
-  - component: {fileID: -7735677735971607133}
+  - component: {fileID: 7839569534172196310}
+  - component: {fileID: 3299672419847400158}
   m_Layer: 0
-  m_Name: Enemy2
+  m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8542927824040687849, guid: 2428817c28a1dcd4c83d0336bfdf1aa4, type: 3}
+  m_Sprite: {fileID: -8541266802125601631, guid: 4027133c873a20b4bb2d71923dc945d3, type: 3}
   m_Color: {r: 1, g: 0, b: 0.95848846, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,8 +121,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &8949759367068422498
-CircleCollider2D:
+--- !u!114 &6163700961507707503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242327412000849203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83847cdd8bc34c51a8f76a13c2d852e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  health: 30
+  damage: 6
+  xpValue: 20
+--- !u!114 &7839569534172196310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242327412000849203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 922cedbd602754a5391bbb75cca2250f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  moveSpeed: 2
+  attackCooldown: 5
+  lastAttackTime: 0
+--- !u!61 &3299672419847400158
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -152,57 +181,19 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0052171946, y: 0.006521535}
-  m_Radius: 0.18957563
---- !u!114 &6163700961507707503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8242327412000849203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b83847cdd8bc34c51a8f76a13c2d852e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  health: 8
-  damage: 0
-  xpValue: 20
---- !u!114 &-8085512847885861738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8242327412000849203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57abab12826fb4ff2bd54f8e979c11dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy2Controller
-  moveSpeed: 4
-  attackRange: 6
-  coolDownTimer: 4
-  bulletPrefab: {fileID: 6189377017700164951, guid: cc53008bd392241a9b12ab6e81c5c1b6, type: 3}
-  bulletSpeed: 2
-  Player: {fileID: 0}
-  enemyStats: {fileID: 0}
---- !u!114 &-7735677735971607133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8242327412000849203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2896043157f3d4447b18fbe316d97196, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::XPDroppable
-  xpPrefab:
-  - {fileID: 6497410297792046212, guid: bfdbb0ff3651a428f97ea748db955da3, type: 3}
+  m_Offset: {x: 0.002496019, y: -0.027456231}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.27}
+    newSize: {x: 1, y: 0.8828125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.28505567, y: 0.1951194}
+  m_EdgeRadius: 0

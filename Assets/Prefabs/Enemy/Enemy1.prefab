@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 6213118201572840852}
   - component: {fileID: 960116661325238805}
   - component: {fileID: 2336552788850377741}
-  - component: {fileID: 6273024311701195694}
+  - component: {fileID: -142138919747720490}
   - component: {fileID: 5174418740833633650}
+  - component: {fileID: 8832942241476562251}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -173,7 +174,7 @@ MonoBehaviour:
   health: 3
   damage: 1
   xpValue: 10
---- !u!114 &6273024311701195694
+--- !u!114 &-142138919747720490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,8 +189,6 @@ MonoBehaviour:
   moveSpeed: 2
   attackCooldown: 1
   lastAttackTime: 0
-  xpPrefab:
-  - {fileID: 1867536879858749767, guid: ed470a4bd9e5f4740a8b4b1c56dd41d0, type: 3}
 --- !u!95 &5174418740833633650
 Animator:
   serializedVersion: 7
@@ -212,3 +211,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8832942241476562251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244983650428718693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2896043157f3d4447b18fbe316d97196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::XPDroppable
+  xpPrefab:
+  - {fileID: 1867536879858749767, guid: ed470a4bd9e5f4740a8b4b1c56dd41d0, type: 3}

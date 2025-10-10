@@ -2,7 +2,14 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject[] enemyPrefab;
+
+    [System.Serializable]
+    public class EnemySpawnInfo
+    {
+        public GameObject prefab;
+        public int maxCount = 10;
+    }
+    public EnemySpawnInfo[] enemies;
     public float spawnInterval = 2f;
     public int minEnemies = 1;
     public int maxEnemies = 5;
@@ -19,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         if (StageManager.Instance.IsPaused || StageManager.Instance.IsUpgrading) return;
-        
+
         timer += Time.deltaTime;
 
         if (timer >= spawnInterval)
@@ -32,14 +39,35 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemies()
     {
         int enemyCount = Random.Range(minEnemies, maxEnemies + 1);
-        int enemyIndex;
 
         for (int i = 0; i < enemyCount; i++)
         {
+            int enemyIndex = Random.Range(0, enemies.Length);
+            EnemySpawnInfo info = enemies[enemyIndex];
+
+            if (info.maxCount > 0)
+            {
+                int currentCount = CountEnemiesOfType(info.prefab.name);
+                if (currentCount >= info.maxCount)
+                    continue;
+            }
+
             Vector3 spawnPos = GetRandomSpawnPosition();
-            enemyIndex = Random.Range(0, enemyPrefab.Length);
-            Instantiate(enemyPrefab[enemyIndex], spawnPos, Quaternion.identity);
+            GameObject enemy = Instantiate(info.prefab, spawnPos, Quaternion.identity);
+
+            enemy.tag = "Enemy";
         }
+    }
+
+    int CountEnemiesOfType(string prefabName)
+    {
+        int count = 0;
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if (enemy.name.Contains(prefabName))
+                count++;
+        }
+        return count;
     }
 
     Vector3 GetRandomSpawnPosition()
@@ -76,7 +104,6 @@ public class EnemySpawner : MonoBehaviour
                     0);
                 break;
         }
-
         return spawnPos;
     }
 }

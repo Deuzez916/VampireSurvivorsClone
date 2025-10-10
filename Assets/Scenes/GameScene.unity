@@ -724,9 +724,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29edb78b14d8f4bd4bebc0e0174e8d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  enemyPrefab:
-  - {fileID: 244983650428718693, guid: 2905e7a9bc14e43a9bea845545323ed4, type: 3}
-  - {fileID: 8242327412000849203, guid: 9dad243a8ec874462bb08dd99d9ea3ed, type: 3}
+  enemies:
+  - prefab: {fileID: 244983650428718693, guid: 2905e7a9bc14e43a9bea845545323ed4, type: 3}
+    maxCount: -1
+  - prefab: {fileID: 8242327412000849203, guid: 9dad243a8ec874462bb08dd99d9ea3ed, type: 3}
+    maxCount: 6
   spawnInterval: 2
   minEnemies: 1
   maxEnemies: 5

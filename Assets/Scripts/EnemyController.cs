@@ -9,9 +9,6 @@ public class EnemyController : MonoBehaviour
     public float attackCooldown = 1f;
     public float lastAttackTime;
 
-    [Header("XP Drop")]
-    public GameObject[] xpPrefab;
-
     private Transform playerTransform;
     private Enemy enemyStats;
     private Rigidbody2D rb;
@@ -33,10 +30,19 @@ public class EnemyController : MonoBehaviour
     {
         if (StageManager.Instance.IsPaused || StageManager.Instance.IsUpgrading) return;
         if (playerController == null) return;
-        if (!playerController.canMove) return;
+
+        if (enemyStats.health <= 0)
+        {
+            XPDroppable xpDrop = GetComponent<XPDroppable>();
+            if (xpDrop != null)
+            {
+                xpDrop.DropXP();
+            }
+            Destroy(gameObject);
+        }
 
         MoveTowardsPlayer();
-        ChechDeath();
+        CheckDeath();
     }
 
     void MoveTowardsPlayer()
@@ -45,22 +51,17 @@ public class EnemyController : MonoBehaviour
         rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
     }
 
-    void ChechDeath()
+    void CheckDeath()
     {
         if (enemyStats.health <= 0)
         {
-            DropXP();
+            XPDroppable xpDrop = GetComponent<XPDroppable>();
+            if (xpDrop != null)
+            {
+                xpDrop.DropXP();
+            }
             Destroy(gameObject);
             Debug.Log("Enemy defeated");
-        }
-    }
-
-    void DropXP()
-    {
-        if (xpPrefab.Length > 0)
-        {
-            int randomIndex = Random.Range(0, xpPrefab.Length);
-            Instantiate(xpPrefab[randomIndex], transform.position, Quaternion.identity);
         }
     }
 
