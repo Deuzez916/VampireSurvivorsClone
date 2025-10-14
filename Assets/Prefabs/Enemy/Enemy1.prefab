@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922cedbd602754a5391bbb75cca2250f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  hitEffect: {fileID: 966932022925267194, guid: b57dc5f5402eacb4bbc0b198ccfa96ea, type: 3}
   moveSpeed: 2
   attackCooldown: 1
   lastAttackTime: 0

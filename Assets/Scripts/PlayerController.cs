@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 lastMoveDirection = Vector2.right;
     private Vector2 currentMoveInput;
 
+    [SerializeField] private ParticleSystem hitEffect;
+
     public int weaponLevel = 0;
     public int maxWeaponLevel = 4;
 
@@ -62,6 +64,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Shoot();
+            Soundmanager.Instance.PlaySoundEffect(SoundEffects.PlayerShoot);
         }
 
         if (hasSelfHeal)
@@ -166,6 +169,8 @@ public class PlayerController : MonoBehaviour
         {
             upgradeManager.ShowUpgradeMenu();
         }
+
+        Soundmanager.Instance.PlaySoundEffect(SoundEffects.LevelUp);
     }
 
     public void UpgradeWeapon()
@@ -226,6 +231,11 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (hitEffect != null)
+        {
+            Instantiate(hitEffect, transform.position, Quaternion.identity);
+        }
+
         health -= amount;
         Debug.Log("Player Health: " + health);
     }
@@ -234,8 +244,31 @@ public class PlayerController : MonoBehaviour
     {
         if (health <= 0)
         {
-            Debug.Log("Player Deid!");
-            Destroy(gameObject);
+            canMove = false;
+            StageManager.Instance.SetState(GameState.GameOver);
+
+            Soundmanager.Instance.PlaySoundEffect(SoundEffects.PlayerDeath);
+
+            Soundmanager.Instance.PlayBackground(SoundEffects.GameOver);
+
+            SavePlayerStats();
         }
+    }
+
+    void SavePlayerStats()
+    {
+        float timePlayed = Time.timeSinceLevelLoad;
+        int kills = EnemyTracker.Instance != null ? EnemyTracker.Instance.GetKillCount() : 0;
+
+        float bestTime = PlayerPrefs.GetFloat("BestTime", 0f);
+        int bestKills = PlayerPrefs.GetInt("BestKills", 0);
+
+        if (timePlayed > bestTime)
+            PlayerPrefs.SetFloat("BestTime", timePlayed);
+
+        if (kills > bestKills)
+            PlayerPrefs.SetInt("BestKills", kills);
+            
+        PlayerPrefs.Save();
     }
 }

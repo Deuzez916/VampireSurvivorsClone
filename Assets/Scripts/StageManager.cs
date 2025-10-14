@@ -7,7 +7,8 @@ public enum GameState
 {
     Play,
     Pause,
-    Upgrade
+    Upgrade,
+    GameOver,
 }
 
 public class StageManager : MonoBehaviour
@@ -24,6 +25,12 @@ public class StageManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+    }
+
+    public void Reset()
+    {
+        currentState = GameState.Play;
     }
 
     public void SetState(GameState newState)
@@ -32,6 +39,7 @@ public class StageManager : MonoBehaviour
     }
 
     public bool IsPaused => currentState == GameState.Pause;
-    public bool isPLaying => currentState == GameState.Play;
+    public bool IsPLaying => currentState == GameState.Play;
     public bool IsUpgrading => currentState == GameState.Upgrade;
+    public bool IsGameOver => currentState == GameState.GameOver;
 }

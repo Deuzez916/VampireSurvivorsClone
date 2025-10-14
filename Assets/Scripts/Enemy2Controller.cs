@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy2Controller : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem hitEffect;
+
     public float moveSpeed = 4f;
     public float attackRange = 6f;
     public float coolDownTimer = 4f;
@@ -38,6 +40,14 @@ public class Enemy2Controller : MonoBehaviour
             {
                 xpDrop.DropXP();
             }
+
+            if (hitEffect != null)
+            {
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
+            }
+
+            Soundmanager.Instance.PlaySoundEffect(SoundEffects.SnakeDeath);
+
             Destroy(gameObject);
         }
 

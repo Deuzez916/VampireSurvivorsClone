@@ -5,6 +5,8 @@ public class EnemyController : MonoBehaviour
 {
     private PlayerController playerController;
 
+    [SerializeField] private ParticleSystem hitEffect;
+
     public float moveSpeed = 2f;
     public float attackCooldown = 1f;
     public float lastAttackTime;
@@ -38,31 +40,22 @@ public class EnemyController : MonoBehaviour
             {
                 xpDrop.DropXP();
             }
+
+            if (EnemyTracker.Instance != null) 
+                EnemyTracker.Instance.AddKill();
+
+            Soundmanager.Instance.PlaySoundEffect(SoundEffects.ZombieDeath);
+            
             Destroy(gameObject);
         }
 
         MoveTowardsPlayer();
-        CheckDeath();
     }
 
     void MoveTowardsPlayer()
     {
         Vector2 direction = (playerTransform.position - transform.position).normalized;
         rb.MovePosition(rb.position + direction * moveSpeed * Time.deltaTime);
-    }
-
-    void CheckDeath()
-    {
-        if (enemyStats.health <= 0)
-        {
-            XPDroppable xpDrop = GetComponent<XPDroppable>();
-            if (xpDrop != null)
-            {
-                xpDrop.DropXP();
-            }
-            Destroy(gameObject);
-            Debug.Log("Enemy defeated");
-        }
     }
 
     void OnTriggerStay2D(Collider2D other)

@@ -1,42 +1,61 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
-    [Header("Audio")]
-    public AudioSource musicSource;
-    public Toggle soundToggle;
-    public Toggle musicToggle;
+    [HideInInspector]
+    public PreviousScene previousScene;
 
-    [Header("Controls")]
-    public Slider controlSchemeSlider;
+    [Header("UI References")]
+    public Toggle musicToggle;
+    public Toggle soundToggle;
 
     void Start()
     {
+        AudioSource bgMusic = Soundmanager.Instance.GetAudioSource(SoundEffects.BackgroundSound);
+        if (bgMusic != null)
+            musicToggle.isOn = bgMusic.mute == false;
 
-        soundToggle.isOn = PlayerPrefs.GetInt("SoundOn", 1) == 1;
-        musicToggle.isOn = PlayerPrefs.GetInt("MusicOn", 1) == 1;
-        musicSource.mute = !musicToggle.isOn;
+        soundToggle.isOn = true;
 
-        controlSchemeSlider.value = PlayerPrefs.GetInt("ControlScheme", 0);
+        musicToggle.onValueChanged.AddListener(OnMusicToggleChanged);
+        soundToggle.onValueChanged.AddListener(OnSoundToggleChanged);
     }
 
-    public void ToggleSound(bool isOn)
+    private void OnMusicToggleChanged(bool isOn)
     {
-        AudioListener.volume = isOn ? 1f : 0f;
-        PlayerPrefs.SetInt("SoundOn", isOn ? 1 : 0);
+        AudioSource bgMusic = Soundmanager.Instance.GetAudioSource(SoundEffects.BackgroundSound);
+        if (bgMusic != null)
+            bgMusic.mute = !isOn;
     }
 
-    public void ToggleMusic(bool isOn)
+    private void OnSoundToggleChanged(bool isOn)
     {
-        musicSource.mute = !isOn;
-        PlayerPrefs.SetInt("MusicOn", isOn ? 1 : 0);
+        foreach (SoundEffects effect in Enum.GetValues(typeof(SoundEffects)))
+        {
+            if (effect == SoundEffects.BackgroundSound) continue;
+
+            AudioSource source = Soundmanager.Instance.GetAudioSource(effect);
+            if (source != null)
+                source.mute = !isOn;
+        }
     }
 
-    public void SetControlScheme(float value)
+    public void OnBackPressed()
     {
-        int scheme = Mathf.RoundToInt(value);
-        PlayerPrefs.SetInt("ControlScheme", scheme);
-        Debug.Log("Control Scheme: " + (scheme == 0 ? "Left-Handed" : "Right-Handed"));
+        Soundmanager.Instance.PlaySoundEffect(SoundEffects.MenuBackSound);
+
+        if (previousScene == PreviousScene.GameScene)
+        {
+            SceneManager.UnloadSceneAsync("settingsScene");
+
+            StageManager.Instance.SetState(GameState.Play);
+        }
+        else
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }
